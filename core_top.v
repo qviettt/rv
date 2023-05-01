@@ -38,4 +38,3 @@ module core_top(clk,reset);
 endmodule
 
 
-

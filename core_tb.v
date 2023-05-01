@@ -68,7 +68,7 @@ always begin
   #20 clk = ~clk;
 end
 initial begin
-  $readmemh("mem_sblb.bin",rv32i.insn_memory.mem);
+  $readmemh("test.bin",rv32i.insn_memory.mem);
 end
  endmodule
 

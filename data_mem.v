@@ -1,4 +1,4 @@
-  module data_mem (dout, addr, clk, din, mem_we);
+module data_mem (dout, addr, clk, din, mem_we);
 
 	//read_addr and write_addr combined
 	input [31:0] addr, din;
@@ -8,12 +8,12 @@
 
 	reg [31:0] mem [0:120]; 
 
-  integer i;
-  initial begin
-    for (i = 0; i < 121; i = i + 1) begin
-       mem[i] = 32'd2;
-    end
-  end
+//  integer i;
+//  initial begin
+//    for (i = 0; i < 121; i = i + 1) begin
+//       mem[i] = 32'd0;
+//    end
+//  end
 
 	always @(posedge clk) 
 		begin

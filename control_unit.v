@@ -1,6 +1,7 @@
-module control_unit
-(imm_val, rs1, rs2, rd, mux_a_sel, mux_b_sel, alu_func, is_scalar_crypto, is_bitmanip, rd_sel, reg_we, pc_add_sel, pc_next_sel, 
-	 mem_we, sx_size, stall, crypto_instruction, bitmanip_instruction, sysi_o, eq, a_lt_b, a_lt_ub, instruction, clk, rst, delayed_load, delayed_rd, delayed_clmul, load_o);
+module control_unit (
+  imm_val, rs1, rs2, rd, mux_a_sel, mux_b_sel, alu_func, is_scalar_crypto, is_bitmanip, rd_sel, reg_we, pc_add_sel, pc_next_sel, 
+  mem_we, sx_size, stall, crypto_instruction, bitmanip_instruction, sysi_o, eq, a_lt_b, a_lt_ub, instruction, clk, rst, delayed_load, delayed_rd, delayed_clmul, load_o
+);
 	input eq, a_lt_b, a_lt_ub;
     input [31:0] instruction;
     input clk, rst;
@@ -113,8 +114,8 @@ module control_unit
     assign fn3_6_o = func3 == 3'b110;
     assign fn3_7_o = func3 == 3'b111;
 
-//    assign eq_o     = branch_o & fn3_0_o & eq ;
-//    assign neq_o    = branch_o & fn3_1_o & (!eq);
+    assign eq_o     = branch_o & fn3_0_o & eq ;
+    assign neq_o    = branch_o & fn3_1_o & (!eq);
     assign lt_o     = branch_o & fn3_4_o & a_lt_b;
     assign ge_o     = branch_o & fn3_5_o & (!a_lt_b);
     assign ltu_o    = branch_o & fn3_6_o & a_lt_ub;
@@ -190,7 +191,7 @@ module control_unit
     assign rd_sel = !rst ? 0 :
                     (lui_o)         ? 2'b01 :
                     (jalr_o|jal_o)  ? 2'b10 : 
-                    (load_o)        ? 2'b11 :   
+                    (delayed_load)        ? 2'b11 :   
                     2'b0;
     
     always @(posedge clk or negedge rst) begin

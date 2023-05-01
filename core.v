@@ -100,7 +100,7 @@ load_stall stall_unit(
 
 	//Program Counter
 	mux32two pc_add_mux(
-	.i0 (32'h4), .i1 (imm_x), .sel (1'b0), .out (pc_add_in));
+	.i0 (32'h4), .i1 (imm_x), .sel (pc_add_sel), .out (pc_add_in));
 	
 	add32 pc_adder (
 	.sum (pc_add_out), .A (pc), .B(pc_add_in));
@@ -162,9 +162,9 @@ control_unit core_control(
 	.crypto_instruction(crypto_insn),
 	.bitmanip_instruction(bitmanip_insn),
 	.sysi_o(sysi_o)			,
-	.eq(1'b0) 				, 
-	.a_lt_b(1'b0)			, 
-	.a_lt_ub(1'b0)		,	 
+	.eq(eq) 				, 
+	.a_lt_b(a_lt_b)			, 
+	.a_lt_ub(a_lt_ub)		,	 
 	.instruction(instruction_mux_out), 
 	.clk(clk)				, 
 	.rst(rst_n) ,  
